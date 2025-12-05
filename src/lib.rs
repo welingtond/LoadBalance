@@ -7,10 +7,19 @@ static ALLOC : WeeAlloc = WeeAlloc::INIT ;
 
 #[wasm_bindgen]
 pub fn load_balance(balance_file: &str) {
+    
     //balance_file.split("\n").into_iter().for_each(|t|log(&t.replace(",", ".").into())) ;
-    balance_file.split("\n").into_iter().for_each(|t:&str|poe_no_console(&t.replace(",",".")));
+    balance_file.split("\n").into_iter().for_each(|t:&str|poe_no_console(&t.replace(",","."))) ;
 }
 
 fn poe_no_console( linha: &String) {
-    log(&linha.into()) ;
+    let broaken: Vec<&str> = linha.split(";").collect() ;
+    let broaken_line = format!("{{\"{}\":\"{}\",\"{}\":\"{}\",\"{}\":{},\"{}\":\"{}\"}}",
+        "date", broaken[0],
+        "description", broaken[1],
+        "amount", broaken[2],
+        "catogory", "UNCATEGORIZED"
+    ) ;
+    println!("{}", &broaken_line) ;
+    log(&broaken_line.into()) ;
 }
